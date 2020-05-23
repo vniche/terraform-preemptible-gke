@@ -1,7 +1,7 @@
-# terraform-preemtible-gke
+# terraform-preemptible-gke
 
 !!! Not suited for production, recommend only for study and development
-This Terraform is intended to deliver a single-zone GKE cluster with a autoscaling preemtible g1-small node-pools based on Padok's article [Kubernetes on Google Cloud Platform: Terraform your first cluster](https://www.padok.fr/en/blog/kubernetes-google-cloud-terraform-cluster)
+This Terraform is intended to deliver a single-zone GKE cluster with a autoscaling preemptible g1-small node-pools based on Padok's article [Kubernetes on Google Cloud Platform: Terraform your first cluster](https://www.padok.fr/en/blog/kubernetes-google-cloud-terraform-cluster)
 
 ### Requirements
 

@@ -33,6 +33,8 @@ resource "google_container_node_pool" "k8s_nodes" {
     metadata = {
       disable-legacy-endpoints = "true"
     }
+
+    tags = [var.name, "common"]
   }
 
   autoscaling {

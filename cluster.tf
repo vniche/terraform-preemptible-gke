@@ -10,6 +10,12 @@ resource "google_container_cluster" "k8s" {
   logging_service    = "none"
   monitoring_service = "none"
 
+  addons_config {
+    http_load_balancing {
+      disabled = true
+    }
+  }
+
   depends_on = [google_compute_network.k8s, google_compute_subnetwork.k8s_subnet]
 }
 

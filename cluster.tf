@@ -19,14 +19,51 @@ resource "google_container_cluster" "k8s" {
   depends_on = [google_compute_network.k8s, google_compute_subnetwork.k8s_subnet]
 }
 
-resource "google_container_node_pool" "k8s_nodes" {
-  name     = "common-node-pool"
-  location = var.zone
-  cluster  = google_container_cluster.k8s.name
+resource "google_container_node_pool" "k8s_ingress_nodes" {
+  name               = "ingress-node-pool"
+  location           = var.zone
+  cluster            = google_container_cluster.k8s.name
+  initial_node_count = 1
 
   node_config {
     preemptible  = true
     machine_type = "g1-small"
+    disk_size_gb = 10
+
+    taint {
+      key    = "app.kubernetes.io/name"
+      value  = "ingress-nginx"
+      effect = "NO_SCHEDULE"
+    }
+
+    oauth_scopes = []
+
+    metadata = {
+      disable-legacy-endpoints = "true"
+    }
+
+    tags = [var.name, "ingress"]
+  }
+
+  autoscaling {
+    min_node_count = 1
+    max_node_count = 3
+  }
+
+  depends_on = [google_container_cluster.k8s]
+}
+
+
+resource "google_container_node_pool" "k8s_common_nodes" {
+  name               = "common-node-pool"
+  location           = var.zone
+  cluster            = google_container_cluster.k8s.name
+  initial_node_count = 1
+
+  node_config {
+    preemptible  = true
+    machine_type = "g1-small"
+    disk_size_gb = 10
 
     oauth_scopes = []
 

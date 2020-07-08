@@ -1,4 +1,5 @@
 resource "google_container_cluster" "k8s" {
+  provider   = google-beta
   name       = var.name
   network    = google_compute_network.k8s.name
   subnetwork = google_compute_subnetwork.k8s_subnet.self_link

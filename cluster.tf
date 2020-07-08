@@ -10,6 +10,8 @@ resource "google_container_cluster" "k8s" {
   logging_service    = "none"
   monitoring_service = "none"
 
+  release_channel = "stable"
+
   addons_config {
     http_load_balancing {
       disabled = true
